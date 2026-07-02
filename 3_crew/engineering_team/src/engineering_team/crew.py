@@ -1,7 +1,11 @@
+#pyright: reportGeneralTypeIssues=false
+# pyright: reportMissingImports=false
+# pyright: reportArgumentType=false
+# pyright: reportCallIssue=false
+# pyright: reportAttributeAccessIssue=false
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-
-
 
 @CrewBase
 class EngineeringTeam():

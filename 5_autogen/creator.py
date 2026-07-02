@@ -1,3 +1,5 @@
+#pyright: reportAttributeAccessIssue=false
+
 from autogen_core import MessageContext, RoutedAgent, message_handler
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.messages import TextMessage
@@ -15,7 +17,6 @@ logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(TRACE_LOGGER_NAME)
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
-
 
 class Creator(RoutedAgent):
 
@@ -44,8 +45,10 @@ class Creator(RoutedAgent):
             Respond only with the python code, no other text, and no markdown code blocks.\n\n\
             Be creative about taking the agent in a new direction, but don't change method signatures.\n\n\
             Here is the template:\n\n"
+       
         with open("agent.py", "r", encoding="utf-8") as f:
             template = f.read()
+     
         return prompt + template   
         
 
@@ -54,12 +57,17 @@ class Creator(RoutedAgent):
         filename = message.content
         agent_name = filename.split(".")[0]
         text_message = TextMessage(content=self.get_user_prompt(), source="user")
+       
         response = await self._delegate.on_messages([text_message], ctx.cancellation_token)
         with open(filename, "w", encoding="utf-8") as f:
             f.write(response.chat_message.content)
+       
         print(f"** Creator has created python code for agent {agent_name} - about to register with Runtime")
+       
         module = importlib.import_module(agent_name)
         await module.Agent.register(self.runtime, agent_name, lambda: module.Agent(agent_name))
+       
         logger.info(f"** Agent {agent_name} is live")
         result = await self.send_message(messages.Message(content="Give me an idea"), AgentId(agent_name, "default"))
+       
         return messages.Message(content=result.content)

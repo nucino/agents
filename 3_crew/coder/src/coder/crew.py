@@ -1,7 +1,12 @@
+#pyright: reportGeneralTypeIssues=false
+# pyright: reportMissingImports=false
+# pyright: reportArgumentType=false
+# pyright: reportCallIssue=false
+# pyright: reportAttributeAccessIssue=false
+
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-
-
 
 @CrewBase
 class Coder():
@@ -27,15 +32,12 @@ class Coder():
 
     @task
     def coding_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['coding_task'],
-        )
+        return Task(config=self.tasks_config['coding_task'], verbose=True)
 
 
     @crew
     def crew(self) -> Crew:
         """Creates the Coder crew"""
-
 
         return Crew(
             agents=self.agents, 

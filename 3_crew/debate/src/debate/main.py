@@ -22,7 +22,7 @@ def run():
     }
     
     try:
-        result = Debate().crew().kickoff(inputs=inputs)
-        print(result.raw)
+        result = Debate().crew().kickoff(inputs=inputs)  # type: ignore
+        print(result.raw)  # type: ignore
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")

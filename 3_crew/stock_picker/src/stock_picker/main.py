@@ -23,7 +23,7 @@ def run():
 
     # Print the result
     print("\n\n=== FINAL DECISION ===\n\n")
-    print(result.raw)
+    print(result.raw) #type: ignore[ReportGeneralTypeIssues]
 
 
 if __name__ == "__main__":

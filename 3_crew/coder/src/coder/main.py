@@ -1,3 +1,9 @@
+# pyright: reportGeneralTypeIssues=false
+# pyright: reportMissingImports=false
+# pyright: reportArgumentType=false
+# pyright: reportCallIssue=false
+# pyright: reportAttributeAccessIssue=false
+
 #!/usr/bin/env python
 import sys
 import warnings
@@ -25,6 +31,5 @@ def run():
     result = Coder().crew().kickoff(inputs=inputs)
     print(result.raw)
 
-
-
-
+if __name__ == "__main__":
+    run()

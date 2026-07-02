@@ -1,3 +1,5 @@
+#type: ignore
+
 from contextlib import AsyncExitStack
 from accounts_client import read_accounts_resource, read_strategy_resource
 from tracers import make_trace_id
@@ -37,16 +39,16 @@ gemini_client = AsyncOpenAI(base_url=GEMINI_BASE_URL, api_key=google_api_key)
 
 
 def get_model(model_name: str):
-    if "/" in model_name:
-        return OpenAIChatCompletionsModel(model=model_name, openai_client=openrouter_client)
-    elif "deepseek" in model_name:
+    #if "/" in model_name:
+    return OpenAIChatCompletionsModel(model=model_name, openai_client=openrouter_client)
+    """elif "deepseek" in model_name:
         return OpenAIChatCompletionsModel(model=model_name, openai_client=deepseek_client)
     elif "grok" in model_name:
         return OpenAIChatCompletionsModel(model=model_name, openai_client=grok_client)
     elif "gemini" in model_name:
         return OpenAIChatCompletionsModel(model=model_name, openai_client=gemini_client)
     else:
-        return model_name
+        return model_name"""
 
 
 async def get_researcher(mcp_servers, model_name) -> Agent:

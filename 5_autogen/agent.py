@@ -1,3 +1,8 @@
+# pyright: reportMissingTypeStubs=false
+# pyright: reportAssignmentType=false
+# pyright: reportArgumentType=false
+# pyright: reportAttributeAccessIssue=false
+
 from autogen_core import MessageContext, RoutedAgent, message_handler
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.messages import TextMessage
@@ -37,9 +42,11 @@ class Agent(RoutedAgent):
         text_message = TextMessage(content=message.content, source="user")
         response = await self._delegate.on_messages([text_message], ctx.cancellation_token)
         idea = response.chat_message.content
+     
         if random.random() < self.CHANCES_THAT_I_BOUNCE_IDEA_OFF_ANOTHER:
             recipient = messages.find_recipient()
             message = f"Here is my business idea. It may not be your speciality, but please refine it and make it better. {idea}"
             response = await self.send_message(messages.Message(content=message), recipient)
             idea = response.content
+     
         return messages.Message(content=idea)
