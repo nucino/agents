@@ -1,12 +1,3 @@
-# pyright: reportGeneralTypeIssues=false
-# pyright: reportMissingImports=false
-# pyright: reportArgumentType=false
-# pyright: reportCallIssue=false
-# pyright: reportAttributeAccessIssue=false
-# pyright: reportPrivateImportUsage=false
-#pyright: reportOptionalMemberAccess=false
-#pyright: reportReturnType=false
-
 from typing import Annotated
 from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, START, END

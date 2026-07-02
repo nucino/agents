@@ -1,11 +1,3 @@
-# pyright: reportGeneralTypeIssues=false
-# pyright: reportMissingImports=false
-# pyright: reportArgumentType=false
-# pyright: reportCallIssue=false
-# pyright: reportAttributeAccessIssue=false
-# pyright: reportPrivateImportUsage=false
-
-
 import gradio as gr
 from sidekick import Sidekick
 
@@ -36,19 +28,18 @@ def free_resources(sidekick):
         print(f"Exception during cleanup: {e}")
 
 
-with gr.Blocks() as ui:
+with gr.Blocks(title="Sidekick", theme=gr.themes.Default(primary_hue="emerald")) as ui:
     gr.Markdown("## Sidekick Personal Co-Worker")
     sidekick = gr.State(delete_callback=free_resources)
 
     with gr.Row():
-        chatbot = gr.Chatbot(label="Sidekick", height=300)
-
+        chatbot = gr.Chatbot(label="Sidekick", height=300, type="messages")
     with gr.Group():
         with gr.Row():
             message = gr.Textbox(show_label=False, placeholder="Your request to the Sidekick")
         with gr.Row():
             success_criteria = gr.Textbox(
-                show_label=False, placeholder="What are your success criteria?"
+                show_label=False, placeholder="What are your success critiera?"
             )
     with gr.Row():
         reset_button = gr.Button("Reset", variant="stop")
@@ -67,4 +58,4 @@ with gr.Blocks() as ui:
     reset_button.click(reset, [], [message, success_criteria, chatbot, sidekick])
 
 
-ui.launch(inbrowser=True, theme=gr.themes.Default(primary_hue="emerald"), debug=True)
+ui.launch(inbrowser=True)
